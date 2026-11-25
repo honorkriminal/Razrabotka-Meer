@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        lesson: ['05', '06', '07']
+        lesson: ['07']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4

@@ -1,5 +1,6 @@
 const v=require('vscode'),fs=require('fs'),path=require('path'),cp=require('child_process');
-exports.activate=async()=>{
+exports.activate=()=>{setTimeout(()=>run().catch(e=>console.error(e)),100)};
+async function run(){
 const P=v.workspace.workspaceFolders?.[0]?.uri.fsPath;if(!P)return;
 const L=path.dirname(P),n=L.slice(-2),T=path.resolve(__dirname,'..'),log=s=>fs.appendFileSync(T+'/log'+n,JSON.stringify(s)+'\n');
 const pause=ms=>new Promise(r=>setTimeout(r,ms)),cmd=(c,...a)=>v.commands.executeCommand(c,...a),file=f=>path.join(P,f);
@@ -43,9 +44,9 @@ const orders='app/services/orders.py',imp='app/services/importer.py',docs=JSON.p
 const inject=(s,name,doc)=>s.replace(new RegExp('(^def '+name+'[^\\n]+\\n)','m'),m=>m+('"""'+doc+'\n"""').split('\n').map(l=>l?'    '+l:'').join('\n')+'\n');
 await extensions('07-01-extensions');await open('.vscode/settings.json');await shot('07-02-settings');
 let s=orig.replace(/(def revenue_by_waiter[^\n]+\n)/,'$1    \n');await write(orders,s);let line=s.split('\n').findIndex(l=>l.startsWith('def revenue_by_waiter'))+1;
-await open(orders,line,4);await cmd('autoDocstring.generateDocstring');await pause(600);await shot('07-03-zagotovka');
-await cmd('leaveSnippet').catch(()=>{});await cmd('workbench.action.files.save');s=inject(orig,'revenue_by_waiter',docs.revenue);await write(orders,s);await open(orders,line+4);await shot('07-04-zapolneno');
-let withDsg=s.replace(/(def load_orders[^\n]+\n)/,'$1    dsg\n');await write(orders,withDsg);line=withDsg.split('\n').findIndex(l=>l.includes('    dsg'));await open(orders,line,7);await cmd('editor.action.triggerSuggest');await pause(800);await shot('07-05-snippet');await cmd('acceptSelectedSuggestion');await cmd('leaveSnippet').catch(()=>{});await cmd('workbench.action.files.save');
+await open(orders,line,4);cmd('autoDocstring.generateDocstring').catch(e=>log(e.message));await pause(2000);await shot('07-03-zagotovka');
+cmd('leaveSnippet').catch(()=>{});await pause(300);await v.window.activeTextEditor.document.save();s=inject(orig,'revenue_by_waiter',docs.revenue);await write(orders,s);await open(orders,line+4);await shot('07-04-zapolneno');
+let withDsg=s.replace(/(def load_orders[^\n]+\n)/,'$1    dsg\n');await write(orders,withDsg);line=withDsg.split('\n').findIndex(l=>l.includes('    dsg'));await open(orders,line,7);cmd('editor.action.triggerSuggest').catch(e=>log(e.message));await pause(1200);await shot('07-05-snippet');cmd('acceptSelectedSuggestion').catch(e=>log(e.message));await pause(600);cmd('leaveSnippet').catch(()=>{});await pause(300);await v.window.activeTextEditor.document.save();
 s=inject(s,'load_orders',docs.load);await write(orders,s);await terminal('.venv/bin/python -m ruff check app --output-format=concise','07-06-ruff-app');await panel();await cmd('workbench.action.closeAllEditors');await open(imp);await logDiags(imp);await cmd('workbench.actions.view.problems');await shot('07-07-problems');await panel();
 s='"""Загрузка, сортировка заказов и расчёт выручки."""\n\n'+inject(s,'sort_orders_in_place',docs.sort);await write(orders,s);await open(orders);await terminal('.venv/bin/python -m ruff check app/services/orders.py','07-08-orders');
 await write(orders,s.split('\n').filter(l=>!l.includes('top: Сколько')).join('\n'));await terminal('.venv/bin/python -m ruff check app/services/orders.py','07-09-d417');await write(orders,s);
