@@ -1,0 +1,27 @@
+name: Сохранить готовые снимки
+on:
+  push:
+    branches: [proverka-vscode]
+    paths: ['.github/workflows/save-images.yml']
+permissions:
+  actions: read
+  contents: write
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: proverka-vscode
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 45595151894
+          path: results
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results
+          git diff --cached --quiet || git commit -m "Снимки проверенных заданий"
+          git pull --rebase origin proverka-vscode
+          git push origin HEAD:proverka-vscode
