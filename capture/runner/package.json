@@ -1,0 +1,1 @@
+{"name":"course-verification","displayName":"Course verification","publisher":"local","version":"0.0.1","engines":{"vscode":"^1.95.0"},"main":"./run.js","activationEvents":["onStartupFinished"]}

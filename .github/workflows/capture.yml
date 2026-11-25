@@ -1,0 +1,32 @@
+name: Проверка снимков VS Code
+on:
+  push:
+    branches: [proverka-vscode]
+    paths: ['.github/workflows/capture.yml', 'capture/**']
+permissions:
+  contents: read
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        lesson: ['05', '06', '07']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MaximBytecamp/backend-starter-template
+          ref: 5802c90552e7e40c3b7ceca17728922088394c19
+          path: course
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: xvfb-run -a -s '-screen 0 1280x860x24' bash capture/capture.sh "${{ matrix.lesson }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lesson-${{ matrix.lesson }}
+          path: |
+            course/lesson_${{ matrix.lesson }}/img/*.png
+            capture/log${{ matrix.lesson }}

@@ -1,0 +1,23 @@
+{
+  "security.workspace.trust.enabled": false,
+  "workbench.startupEditor": "none",
+  "window.restoreWindows": "none",
+  "window.newWindowDimensions": "maximized",
+  "window.zoomLevel": -0.2,
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 15,
+  "editor.minimap.enabled": false,
+  "workbench.tips.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  "updates.mode": "none",
+  "extensions.autoUpdate": false,
+  "chat.disableAIFeatures": true,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": false,
+  "python-envs.terminal.autoActivationType": "off",
+  "ruff.enable": true,
+  "python.languageServer": "Pylance",
+  "terminal.integrated.shellIntegration.enabled": false
+}
