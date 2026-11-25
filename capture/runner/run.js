@@ -7,7 +7,7 @@ const open=async(f,line=0,col=0)=>{let d=await v.workspace.openTextDocument(v.Ur
 const diag=f=>v.languages.getDiagnostics(v.Uri.file(file(f))).map(d=>[d.range.start.line+1,d.range.start.character+1,d.source,d.message]);
 const mode=async(m)=>{await v.workspace.getConfiguration('python.analysis').update('typeCheckingMode',m,v.ConfigurationTarget.Workspace);await pause(2500)};
 const write=async(f,t)=>{await v.workspace.fs.writeFile(v.Uri.file(file(f)),Buffer.from(t));await pause(600)};
-const shot=async(name)=>{await pause(750);const dest=path.join(L,'img',name+'.png');cp.execFileSync('import',['-window','root',dest],{timeout:15000});log(name)};
+const shot=async(name)=>{await pause(750);const dest=path.join(L,'img',name+'.png');cp.execFileSync(file('.venv/bin/python'),[path.join(T,'screenshot.py'),dest],{timeout:15000});log(name)};
 const panel=async()=>{await cmd('workbench.action.closePanel');await pause(300)};
 const sidebar=async()=>{await cmd('workbench.action.closeSidebar');await pause(200)};
 let term;
