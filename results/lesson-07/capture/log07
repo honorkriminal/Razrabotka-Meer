@@ -1,0 +1,11 @@
+"07-01-extensions"
+"07-02-settings"
+"07-03-zagotovka"
+"07-04-zapolneno"
+"07-05-snippet"
+"07-06-ruff-app"
+{"app/services/importer.py":[[1,1,"Ruff","Missing docstring in public module"],[6,5,"Ruff","Missing docstring in public function"]]}
+"07-07-problems"
+"07-08-orders"
+"07-09-d417"
+"07-10-variant"
