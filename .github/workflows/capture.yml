@@ -30,3 +30,23 @@ jobs:
           path: |
             course/lesson_${{ matrix.lesson }}/img/*.png
             capture/log${{ matrix.lesson }}
+
+  archive:
+    needs: capture
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: proverka-vscode
+      - uses: actions/download-artifact@v4
+        with:
+          path: results
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results
+          git commit -m "Снимки проверок учебных проектов"
+          git push origin HEAD:proverka-vscode

@@ -28,12 +28,17 @@ if [[ "$n" == 07 ]]; then cp "$GITHUB_WORKSPACE/capture/python.code-snippets" .v
 cd "$RUNNER_TEMP"
 curl -fsSL https://update.code.visualstudio.com/latest/linux-x64/stable | tar xz
 code="$RUNNER_TEMP/VSCode-linux-x64/bin/code"
-opts=(--disable-gpu --user-data-dir "$RUNNER_TEMP/profile" --extensions-dir "$RUNNER_TEMP/extensions")
+opts=(--no-sandbox --disable-gpu --user-data-dir "$RUNNER_TEMP/profile" --extensions-dir "$RUNNER_TEMP/extensions")
 "$code" "${opts[@]}" --install-extension ms-python.python --install-extension ms-python.vscode-pylance --install-extension njpwerner.autodocstring --install-extension charliermarsh.ruff
-"$code" "${opts[@]}" --extensionDevelopmentPath="$GITHUB_WORKSPACE/capture/runner" "$target"
+"$RUNNER_TEMP/VSCode-linux-x64/code" "${opts[@]}" --extensionDevelopmentPath="$GITHUB_WORKSPACE/capture/runner" "$target" > "$RUNNER_TEMP/editor.log" 2>&1 &
+pid=$!
 for i in $(seq 1 180); do
   if [[ -f "$GITHUB_WORKSPACE/capture/finished" ]]; then exit 0; fi
   if [[ -f "$GITHUB_WORKSPACE/capture/failed" ]]; then cat "$GITHUB_WORKSPACE/capture/failed"; exit 1; fi
+  if ! kill -0 "$pid" 2>/dev/null; then cat "$RUNNER_TEMP/editor.log"; exit 1; fi
+  if (( i % 15 == 0 )); then tail -5 "$GITHUB_WORKSPACE/capture/log$n" 2>/dev/null || true; fi
   sleep 2
 done
+cat "$RUNNER_TEMP/editor.log"
+find "$RUNNER_TEMP/profile/logs" -name exthost.log -exec tail -30 {} \;
 exit 1
