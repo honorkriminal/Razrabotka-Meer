@@ -9,7 +9,7 @@ if [[ "$n" == 05 ]]; then cp -r "$base/otchet-kafe-start/app/." "$target/app/"; 
 cd "$target"
 python -m venv .venv
 .venv/bin/python -m pip install -qr requirements.txt
-.venv/bin/python -m pip install -q mss
+.venv/bin/python -m pip install -q mss==10.1.0
 mkdir -p .vscode "$RUNNER_TEMP/profile/User"
 cp "$GITHUB_WORKSPACE/capture/settings.json" "$RUNNER_TEMP/profile/User/settings.json"
 python - "$n" <<'PY'
