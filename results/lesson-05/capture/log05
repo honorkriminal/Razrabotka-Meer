@@ -1,0 +1,8 @@
+"py-01-extensions"
+"py-02-settings"
+{"proba.py":[[3,22,"Pylance","Argument of type \"Literal[40]\" cannot be assigned to parameter \"text\" of type \"str\" in function \"format_title\"\n  \"Literal[40]\" is not assignable to \"str\""],[4,24,"Pylance","Argument of type \"Literal['1250']\" cannot be assigned to parameter \"kopeks\" of type \"int\" in function \"format_kopeks\"\n  \"Literal['1250']\" is not assignable to \"int\""]]}
+"py-03-squiggle"
+"py-04-hover"
+"py-05-problems"
+"py-06-mypy-errors"
+"py-07-final"

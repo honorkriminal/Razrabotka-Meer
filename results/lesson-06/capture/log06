@@ -1,0 +1,16 @@
+"06-01-off"
+"06-02-settings"
+{"proba.py":[[3,22,"Pylance","Argument of type \"Literal[40]\" cannot be assigned to parameter \"text\" of type \"str\" in function \"format_title\"\n  \"Literal[40]\" is not assignable to \"str\""],[4,24,"Pylance","Argument of type \"Literal['1250']\" cannot be assigned to parameter \"kopeks\" of type \"int\" in function \"format_kopeks\"\n  \"Literal['1250']\" is not assignable to \"int\""]]}
+"06-03-squiggle"
+"06-04-hover"
+{"proba.py":[[4,22,"Pylance","Argument of type \"Literal[40]\" cannot be assigned to parameter \"text\" of type \"str\" in function \"format_title\"\n  \"Literal[40]\" is not assignable to \"str\""],[5,24,"Pylance","Argument of type \"Literal['1250']\" cannot be assigned to parameter \"kopeks\" of type \"int\" in function \"format_kopeks\"\n  \"Literal['1250']\" is not assignable to \"int\""],[6,14,"Pylance","Argument of type \"Literal['Итог']\" cannot be assigned to parameter \"lines\" of type \"list[str]\" in function \"print_report\"\n  \"Literal['Итог']\" is not assignable to \"list[str]\""]]}
+"06-05-problems"
+{"mode":"off","items":["\"undefined_name\" is not defined"]}
+{"mode":"basic","items":["Argument of type \"Literal[40]\" cannot be assigned to parameter \"text\" of type \"str\" in function \"format_title\"\n  \"Literal[40]\" is not assignable to \"str\"","\"undefined_name\" is not defined"]}
+{"mode":"standard","items":["\"label\" is possibly unbound","Argument of type \"Literal[40]\" cannot be assigned to parameter \"text\" of type \"str\" in function \"format_title\"\n  \"Literal[40]\" is not assignable to \"str\"","\"undefined_name\" is not defined"]}
+{"mode":"strict","items":["\"_squash_spaces\" is private and used outside of the module in which it is declared","Type of parameter \"prices\" is unknown","Type annotation is missing for parameter \"prices\"","Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"sum\"","\"label\" is possibly unbound","Argument of type \"Literal[40]\" cannot be assigned to parameter \"text\" of type \"str\" in function \"format_title\"\n  \"Literal[40]\" is not assignable to \"str\"","\"undefined_name\" is not defined","Argument type is unknown\n  Argument corresponds to parameter \"values\" in function \"print\"","Import \"os\" is not accessed"]}
+"06-06-strict"
+"06-07-mypy-errors"
+"06-08-mypy-success"
+"06-09-bez-tipov"
+"06-10-tip"
